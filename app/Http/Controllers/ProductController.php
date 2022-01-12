@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -33,12 +34,20 @@ class ProductController extends Controller
                 ->update([
                     'available_stock'   =>  $newQuantity
                 ]);
+            
+            Order::create([
+                'user_id'   =>  $request->user()->id,
+                'product_id'=>  $request->product_id,
+                'quantity'  =>  $request->quantity
+            ]);
 
+            // response message with status code 201 or CREATED
             return response()->json([
                 'message' => 'You have successfully ordered this product.'
             ], 201);
         }
 
+        // response message with status code 404 or NOT FOUND
         return response()->json([
             'message'   =>  'No product'
         ], 404);

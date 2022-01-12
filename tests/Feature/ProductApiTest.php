@@ -12,7 +12,7 @@ use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ProductApiTest extends TestCase
-{
+{    
     /** @test */
     public function can_seed_products_to_the_database()
     {
